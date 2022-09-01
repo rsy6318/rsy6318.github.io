@@ -1,6 +1,7 @@
-# rsy6318.github.io
-## Point Cloud Registration
+# Siyu Ren
+
+### Point Cloud Registration
 Calculate the transformation from source to target point cloud.
 
-## Image-to-Point Cloud Registration
+### Image-to-Point Cloud Registration
 Calculate the camera pose given the map of point cloud and a query image.
