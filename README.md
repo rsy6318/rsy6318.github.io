@@ -1,4 +1,4 @@
-# Siyu Ren
+# Siyu Ren (任思宇)
 
 ### Point Cloud Registration
 Calculate the transformation from source to target point cloud.
