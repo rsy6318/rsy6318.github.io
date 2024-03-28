@@ -148,10 +148,10 @@
     
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>GeoUDF</title>
+    <title>CorrI2P</title>
     <!-- Bootstrap -->
-    <link href="./GeoUDF/bootstrap-4.4.1.css" rel="stylesheet">
-    <link rel="stylesheet" href="./GeoUDF/font-awesome.min.css">
+    <link href="./CorrI2P/bootstrap-4.4.1.css" rel="stylesheet">
+    <link rel="stylesheet" href="./CorrI2P/font-awesome.min.css">
 </head>
 
 <!-- cover -->
@@ -189,7 +189,7 @@
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 <li>
                                     <a href="https://github.com/rsy6318/CorrI2P">
-                                        <img src="./GeoUDF/github.png" height="60px">
+                                        <img src="./CorrI2P/github.png" height="60px">
                                             <h4><strong>Code</strong></h4>
                                     </a>
                                 </li>
@@ -212,10 +212,10 @@
       <div class="container">
           <div class="row">
               <div class="col-12 text-center" id="pipeline">
-                <img src='GeoUDF/demo/input.gif' width=220 allowfullscreen="" controls="">
-                <img src='GeoUDF/demo/pu.gif' width=220 allowfullscreen="" controls="">
-                <img src='GeoUDF/demo/result.gif' width=220 allowfullscreen="" controls="">
-                <img src='GeoUDF/demo/gt.gif' width=220 allowfullscreen="" controls="">
+                <img src='CorrI2P/demo/input.gif' width=220 allowfullscreen="" controls="">
+                <img src='CorrI2P/demo/pu.gif' width=220 allowfullscreen="" controls="">
+                <img src='CorrI2P/demo/result.gif' width=220 allowfullscreen="" controls="">
+                <img src='CorrI2P/demo/gt.gif' width=220 allowfullscreen="" controls="">
                 <center><h5><div>Left to Right: Input, Upsampled, Ours, and GT.</div><h5> </center>
               </div>
           </div>
@@ -293,7 +293,7 @@
       <h3><b>Local Geometry Representation</b></h3>
       <div class="row">
           <div class="col-12 text-center">
-            <image width="600" src="GeoUDF/lgr.png" allowfullscreen="" controls=""></image>
+            <image width="600" src="CorrI2P/lgr.png" allowfullscreen="" controls=""></image>
             <p class="text-justify">
               Let <img src="http://latex.codecogs.com/gif.latex?\mathcal{P}=\{\mathbf{p}_i \in \mathbb{R}^{3}\}_{i=1}^{N}" title="0" /> be an sparse poitn cloud of <img src="http://latex.codecogs.com/gif.latex?N" title="0" /> points sampled from a surface <img src="http://latex.codecogs.com/gif.latex?\mathcal{S}" title="0" />, a quadratic polynomial surface is used to approximate the local surface:
             </p>
@@ -311,8 +311,8 @@
       <h3><b>Geometry-guided UDF Estimation</b></h3>
       <div class="row">
           <div class="col-12 text-center">
-            <image width="600" src="GeoUDF/gue.png" allowfullscreen="" controls=""></image>
-            <image width="800" src="GeoUDF/gue2.png" allowfullscreen="" controls=""></image>
+            <image width="600" src="CorrI2P/gue.png" allowfullscreen="" controls=""></image>
+            <image width="800" src="CorrI2P/gue2.png" allowfullscreen="" controls=""></image>
             <p class="text-justify">
               Given a query point <img src="http://latex.codecogs.com/gif.latex?\mathbf{q}\in\mathbb{R}^3" title="0" />, we use the weighted distances to the tangent planes of its <img src="http://latex.codecogs.com/gif.latex?K" title="0" />-NN neighbouring points, <img src="http://latex.codecogs.com/gif.latex?\Omega(\mathbf{q})" title="0" />, to approximate its UDF,
             </p>
@@ -331,7 +331,7 @@
       <h3><b>Edge-based Marching Cube</b></h3>
       <div class="row">
           <div class="col-12 text-center">
-            <image width="800" src="GeoUDF/emc.png" allowfullscreen="" controls=""></image>
+            <image width="800" src="CorrI2P/emc.png" allowfullscreen="" controls=""></image>
             <p class="text-justify">
               If the surface interacts with the connection between <img src="http://latex.codecogs.com/gif.latex?\mathbf{q}_1" title="0" /> and 
               <img src="http://latex.codecogs.com/gif.latex?\mathbf{q}_2" title="0" />, the following constraints must be satisfied,
