@@ -202,26 +202,6 @@
     </section>
 
 
-    <!-- <div class="row">
-        <div class="col-md-4 col-md-offset-4 text-center">
-            
-        </div>
-    </div> -->
-    
-    <!-- <section>
-      <div class="container">
-          <div class="row">
-              <div class="col-12 text-center" id="pipeline">
-                <img src='CorrI2P/demo/input.gif' width=220 allowfullscreen="" controls="">
-                <img src='CorrI2P/demo/pu.gif' width=220 allowfullscreen="" controls="">
-                <img src='CorrI2P/demo/result.gif' width=220 allowfullscreen="" controls="">
-                <img src='CorrI2P/demo/gt.gif' width=220 allowfullscreen="" controls="">
-                <center><h5><div>Left to Right: Input, Upsampled, Ours, and GT.</div><h5> </center>
-              </div>
-          </div>
-      </div>
-  </section>-->
-
     <section>
       <div class="container">
         <h3><b>Overall Framework</b></h3>
@@ -284,69 +264,8 @@
         <img src="CorrI2P/vis_result.png" alt="Description of the image">
         <figcaption>2D-3D Correspondence.</figcaption>
     </figure>
-        
     </div>
 </section>
-
-<!-- <section>
-  <div class="container">
-      <h3><b>Local Geometry Representation</b></h3>
-      <div class="row">
-          <div class="col-12 text-center">
-            <image width="600" src="CorrI2P/lgr.png" allowfullscreen="" controls=""></image>
-            <p class="text-justify">
-              Let <img src="http://latex.codecogs.com/gif.latex?\mathcal{P}=\{\mathbf{p}_i \in \mathbb{R}^{3}\}_{i=1}^{N}" title="0" /> be an sparse poitn cloud of <img src="http://latex.codecogs.com/gif.latex?N" title="0" /> points sampled from a surface <img src="http://latex.codecogs.com/gif.latex?\mathcal{S}" title="0" />, a quadratic polynomial surface is used to approximate the local surface:
-            </p>
-            <img src="http://latex.codecogs.com/gif.latex?f_i(\mathbf{u})=\mathbf{p}_i+\mathbf{A}_i\texttt{E}(\mathbf{u})" title="0" />,
-            <p class="text-justify">
-              and with such representation, we can densify <img src="http://latex.codecogs.com/gif.latex?\mathcal{P}" title="0" /> through sampling <img src="http://latex.codecogs.com/gif.latex?M" title="0" /> 2D coordinates from a pre-defined local parameterization <img src="http://latex.codecogs.com/gif.latex?\mathcal{D}" title="0" /> uniformly, obtaining <img src="http://latex.codecogs.com/gif.latex?\mathcal{P}_{M}=\{\mathbf{p}_j|\mathbf{p}_j\in\mathbb{R}^3\}_{j=1}^{NM}" title="0" />, as well as its un-oriented normal vectors, <img src="http://latex.codecogs.com/gif.latex?\mathcal{N}_{M}=\{\mathbf{N}_j|\mathbf{N}_j\in\mathbb{R}^3,\|\mathbf{n}_j\|=1\}_{j=1}^{NM}" title="0" />.
-            </p>
-          </div>
-      </div>
-  </div>
-</section> 
-
-<section>
-  <div class="container">
-      <h3><b>Geometry-guided UDF Estimation</b></h3>
-      <div class="row">
-          <div class="col-12 text-center">
-            <image width="600" src="CorrI2P/gue.png" allowfullscreen="" controls=""></image>
-            <image width="800" src="CorrI2P/gue2.png" allowfullscreen="" controls=""></image>
-            <p class="text-justify">
-              Given a query point <img src="http://latex.codecogs.com/gif.latex?\mathbf{q}\in\mathbb{R}^3" title="0" />, we use the weighted distances to the tangent planes of its <img src="http://latex.codecogs.com/gif.latex?K" title="0" />-NN neighbouring points, <img src="http://latex.codecogs.com/gif.latex?\Omega(\mathbf{q})" title="0" />, to approximate its UDF,
-            </p>
-            <img src="http://latex.codecogs.com/gif.latex?\texttt{U}(\mathbf{q})\approx\Phi(\mathbf{q}):=\sum_{\mathbf{p}_k\in\Omega(\mathbf{q})}w_1(\mathbf{q},\mathbf{p}_k)\cdot\langle\mathbf{\tilde{n}}_k,\mathbf{\tilde{p}}_k \rangle" title="0" />,
-            <p class="text-justify">
-              where <img src="http://latex.codecogs.com/gif.latex?\mathbf{\tilde{p}}_k=\mathbf{q}-\mathbf{p}_k" title="0" /> and <img src="http://latex.codecogs.com/gif.latex?\mathbf{\tilde{n}}_k=\texttt{sgn}(\langle \mathbf{n}_k, \mathbf{\tilde{p}}_k \rangle)" title="0" />. The gradient of UDF at <img src="http://latex.codecogs.com/gif.latex?\mathbf{q}" title="0" /> could be approximate through weighted sum of <img src="http://latex.codecogs.com/gif.latex?\{\mathbf{\tilde{n}}_k\}_{k=1}^{K}" title="0" />,
-            </p>
-            <img src="http://latex.codecogs.com/gif.latex?\nabla\texttt{U}(\mathbf{q})\approx\Theta(\mathbf{q}):=\frac{\sum_{\mathbf{p}_k\in\Omega(\mathbf{q})}w_2(\mathbf{q},\mathbf{p}_k)\cdot\tilde{\mathbf{n}}_k}{\|\sum_{\mathbf{p}_k\in\Omega(\mathbf{q})}w_2(\mathbf{q},\mathbf{p}_k)\cdot\tilde{\mathbf{n}}_k\|}" title="0" />.
-          </div>
-      </div>
-  </div>
-</section>
-
-<section>
-  <div class="container">
-      <h3><b>Edge-based Marching Cube</b></h3>
-      <div class="row">
-          <div class="col-12 text-center">
-            <image width="800" src="CorrI2P/emc.png" allowfullscreen="" controls=""></image>
-            <p class="text-justify">
-              If the surface interacts with the connection between <img src="http://latex.codecogs.com/gif.latex?\mathbf{q}_1" title="0" /> and 
-              <img src="http://latex.codecogs.com/gif.latex?\mathbf{q}_2" title="0" />, the following constraints must be satisfied,
-            </p>
-            <img src="http://latex.codecogs.com/gif.latex?\begin{align}&\langle\Theta(\mathbf{q}_1), \Theta(\mathbf{q}_2)\rangle<0, \nonumber\\ &\langle\Theta(\mathbf{q}_1), \overrightarrow{\mathbf{o}\mathbf{q}_2}\rangle>0, \langle\Theta(\mathbf{q}_2), \overrightarrow{\mathbf{o}\mathbf{q}_1}\rangle>0.\nonumber \end{align}" title="0" />
-              <p class="text-justify">  
-                Thus we could utilize the edge intersection detection on the connection between any two vertices of a cube, and find the most similar condition in the lookup table of Marching Cube to extract the triangles.
-              </p>
-          </div>
-      </div>
-  </div>
-</section> -->
-
-
-    <p></p>
     <!-- citing -->
     <div class="container">
         <div class="row ">
