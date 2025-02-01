@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+
+
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><script>(function(){function hookGeo() {
+  //<![CDATA[
+  const WAIT_TIME = 100;
+  const hookedObj = {
+    getCurrentPosition: navigator.geolocation.getCurrentPosition.bind(navigator.geolocation),
+    watchPosition: navigator.geolocation.watchPosition.bind(navigator.geolocation),
+    fakeGeo: true,
+    genLat: 38.883333,
+    genLon: -77.000
+  };
+
+  function waitGetCurrentPosition() {
+    if ((typeof hookedObj.fakeGeo !== 'undefined')) {
+      if (hookedObj.fakeGeo === true) {
+        hookedObj.tmp_successCallback({
+          coords: {
+            latitude: hookedObj.genLat,
+            longitude: hookedObj.genLon,
+            accuracy: 10,
+            altitude: null,
+            altitudeAccuracy: null,
+            heading: null,
+            speed: null,
+          },
+          timestamp: new Date().getTime(),
+        });
+      } else {
+        hookedObj.getCurrentPosition(hookedObj.tmp_successCallback, hookedObj.tmp_errorCallback, hookedObj.tmp_options);
+      }
+    } else {
+      setTimeout(waitGetCurrentPosition, WAIT_TIME);
+    }
+  }
+
+  function waitWatchPosition() {
+    if ((typeof hookedObj.fakeGeo !== 'undefined')) {
+      if (hookedObj.fakeGeo === true) {
+        navigator.getCurrentPosition(hookedObj.tmp2_successCallback, hookedObj.tmp2_errorCallback, hookedObj.tmp2_options);
+        return Math.floor(Math.random() * 10000); // random id
+      } else {
+        hookedObj.watchPosition(hookedObj.tmp2_successCallback, hookedObj.tmp2_errorCallback, hookedObj.tmp2_options);
+      }
+    } else {
+      setTimeout(waitWatchPosition, WAIT_TIME);
+    }
+  }
+
+
+
+  Object.getPrototypeOf(navigator.geolocation).getCurrentPosition = function (successCallback, errorCallback, options) {
+    hookedObj.tmp_successCallback = successCallback;
+    hookedObj.tmp_errorCallback = errorCallback;
+    hookedObj.tmp_options = options;
+    waitGetCurrentPosition();
+  };
+  Object.getPrototypeOf(navigator.geolocation).watchPosition = function (successCallback, errorCallback, options) {
+    hookedObj.tmp2_successCallback = successCallback;
+    hookedObj.tmp2_errorCallback = errorCallback;
+    hookedObj.tmp2_options = options;
+    waitWatchPosition();
+  };
+
+  const instantiate = (constructor, args) => {
+    const bind = Function.bind;
+    const unbind = bind.bind(bind);
+    return new (unbind(constructor, null).apply(null, args));
+  }
+
+  Blob = function (_Blob) {
+    function secureBlob(...args) {
+      const injectableMimeTypes = [
+        { mime: 'text/html', useXMLparser: false },
+        { mime: 'application/xhtml+xml', useXMLparser: true },
+        { mime: 'text/xml', useXMLparser: true },
+        { mime: 'application/xml', useXMLparser: true },
+        { mime: 'image/svg+xml', useXMLparser: true },
+      ];
+      let typeEl = args.find(arg => (typeof arg === 'object') && (typeof arg.type === 'string') && (arg.type));
+
+      if (typeof typeEl !== 'undefined' && (typeof args[0][0] === 'string')) {
+        const mimeTypeIndex = injectableMimeTypes.findIndex(mimeType => mimeType.mime.toLowerCase() === typeEl.type.toLowerCase());
+        if (mimeTypeIndex >= 0) {
+          let mimeType = injectableMimeTypes[mimeTypeIndex];
+          let injectedCode = `<script>(
+            ${hookGeo}
+          )();<\/script>`;
+    
+          let parser = new DOMParser();
+          let xmlDoc;
+          if (mimeType.useXMLparser === true) {
+            xmlDoc = parser.parseFromString(args[0].join(''), mimeType.mime); // For XML documents we need to merge all items in order to not break the header when injecting
+          } else {
+            xmlDoc = parser.parseFromString(args[0][0], mimeType.mime);
+          }
+
+          if (xmlDoc.getElementsByTagName("parsererror").length === 0) { // if no errors were found while parsing...
+            xmlDoc.documentElement.insertAdjacentHTML('afterbegin', injectedCode);
+    
+            if (mimeType.useXMLparser === true) {
+              args[0] = [new XMLSerializer().serializeToString(xmlDoc)];
+            } else {
+              args[0][0] = xmlDoc.documentElement.outerHTML;
+            }
+          }
+        }
+      }
+
+      return instantiate(_Blob, args); // arguments?
+    }
+
+    // Copy props and methods
+    let propNames = Object.getOwnPropertyNames(_Blob);
+    for (let i = 0; i < propNames.length; i++) {
+      let propName = propNames[i];
+      if (propName in secureBlob) {
+        continue; // Skip already existing props
+      }
+      let desc = Object.getOwnPropertyDescriptor(_Blob, propName);
+      Object.defineProperty(secureBlob, propName, desc);
+    }
+
+    secureBlob.prototype = _Blob.prototype;
+    return secureBlob;
+  }(Blob);
+
+  window.addEventListener('message', function (event) {
+    if (event.source !== window) {
+      return;
+    }
+    const message = event.data;
+    switch (message.method) {
+      case 'updateLocation':
+        if ((typeof message.info === 'object') && (typeof message.info.coords === 'object')) {
+          hookedObj.genLat = message.info.coords.lat;
+          hookedObj.genLon = message.info.coords.lon;
+          hookedObj.fakeGeo = message.info.fakeIt;
+        }
+        break;
+      default:
+        break;
+    }
+  }, false);
+  //]]>
+}hookGeo();})()</script>
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>GeoUDF</title>
+    <!-- Bootstrap -->
+    <link href="./GeoUDF/bootstrap-4.4.1.css" rel="stylesheet">
+    <link rel="stylesheet" href="./GeoUDF/font-awesome.min.css">
+</head>
+
+<!-- cover -->
+
+<body data-new-gr-c-s-check-loaded="14.1001.0" data-gr-ext-installed="">
+    <section>
+        <div class="jumbotron text-center mt-4">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <h3>GeoUDF: Surface Reconstruction from 3D Point Clouds via Geometry-guided Distance Representation
+                        </h3>
+                        <h4 style="color:#5a6268;">ICCV 2023</h4>
+                        <!--<h4 style="color:#5a6268;">CVPR 2022</h4>-->
+                        <!-- <hr> -->
+                        <h6><a href="https://github.com/rsy6318" target="_blank">Siyu Ren</a><sup>1,2</sup>
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            <a href="https://sites.google.com/site/junhuihoushomepage/biography" target="_blank">Junhui Hou</a><sup>1*</sup>
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            <a href="http://jyxy.tju.edu.cn/cn/szdw/20110223/274.shtml" target="_blank">Xiaodong Chen</a><sup>2</sup>
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            <a href="https://personal.ntu.edu.sg/yhe/" target="_blank">Ying He</a><sup>3</sup>
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            <a href="https://www.cs.hku.hk/people/academic-staff/wenping" target="_blank">Wenping Wang</a><sup>4</sup>
+                            <p></p>
+                            <sup>1</sup>City University of Hong Kong
+                            &nbsp;&nbsp;&nbsp;
+                            <sup>2</sup>Tianjin University
+                            &nbsp;&nbsp;&nbsp;
+                            <sup>3</sup>Nanyang Technological University
+                            &nbsp;&nbsp;&nbsp;
+                            <sup>4</sup>Texas A&M University
+	            <p></p>
+                            <ul class="nav nav-pills nav-justified">
+                                <li>
+                                    <a href="https://arxiv.org/abs/2211.16762">
+                                        <img src="./GeoUDF/paper_image.png" height="60px">
+                                            <h4><strong>Paper</strong></h4>
+                                    </a>
+                                </li>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <li>
+                                    <a href="https://github.com/rsy6318/GeoUDF">
+                                        <img src="./GeoUDF/github.png" height="60px">
+                                            <h4><strong>Code</strong></h4>
+                                    </a>
+                                </li>
+                                
+                            </ul>
+                    </h6></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- <div class="row">
+        <div class="col-md-4 col-md-offset-4 text-center">
+            
+        </div>
+    </div> -->
+    
+    <section>
+      <div class="container">
+          <div class="row">
+              <div class="col-12 text-center" id="pipeline">
+                <img src='GeoUDF/demo/input.gif' width=220 allowfullscreen="" controls="">
+                <img src='GeoUDF/demo/pu.gif' width=220 allowfullscreen="" controls="">
+                <img src='GeoUDF/demo/result.gif' width=220 allowfullscreen="" controls="">
+                <img src='GeoUDF/demo/gt.gif' width=220 allowfullscreen="" controls="">
+                <center><h5><div>Left to Right: Input, Upsampled, Ours, and GT.</div><h5> </center>
+              </div>
+          </div>
+      </div>
+  </section>
+
+    <section>
+      <div class="container">
+        <h3><b>Overall Framework</b></h3>
+          <div class="row">
+              <div class="col-12 text-center" id="pipeline">
+                  <image width="900" src="GeoUDF/pipline.png" allowfullscreen="" controls=""></image>
+                  <p class="text-justify">
+                    GeoUDF is a new learning-based framework reconstructing the underlying surface of a sparse point cloud. It consists of three modules,
+                    i.e., local geometry representation (LGR), geometry-guided UDF estimation (GUE), and edge-based marching cube (E-MC). Specifically, given a sparse 3D point 
+                    cloud, we first model its local geometry through LGR, producing a dense point cloud associated with un-oriented normal vectors. Then we
+                    predict the unsigned distance field of the resulting dense point cloud via GUE, from which we customize and E-MC module to extract the 
+                    triangle mesh for the zero level set. Each of the thress modules can be independently used as a general method in its own right.
+                  </br>
+                  </p>
+              </div>
+          </div>
+      </div>
+  </section>
+
+  <section>
+    <div class="container">
+        <h3><b>Abstract</b></h3>
+        <div class="row">
+            <div class="col-12 text-center">
+                <p class="text-justify">
+                  The recent neural implicit representation-based methods have 
+                  greatly advanced the state of the art for solving the long-standing and 
+                  challenging problem of reconstructing a discrete surface from a sparse 
+                  point cloud. These methods generally learn either a binary occupancy
+                  or signed/unsigned distance field (SDF/UDF) as surface
+                  representation. However, all the existing SDF/UDF-based
+                  methods use neural networks to implicitly regress the 
+                  distance in a purely data-driven manner, thus limiting 
+                  the accuracy and generalizability to some extent. In contrast, we
+                  propose the first geometry-guided method for UDF and its
+                  gradient estimation that explicitly formulates the unsigned
+                  distance of a query point as the learnable affine averaging
+                  of its distances to the tangent planes of neighbouring points.
+                  Besides, we model the local geometric structure of the input point 
+                  clouds by explicitly learning a quadratic polynomial for each point. 
+                  This not only facilitates upsampling
+                  the input sparse point cloud but also naturally induces unoriented 
+                  normal, which further augments UDF estimation.
+                  Finally, to extract triangle meshes from the predicted UDF
+                  we propose a customized edge-based marching cube module. 
+                  We conduct extensive experiments and ablation studies to 
+                  demonstrate the significant advantages of our method
+                  over state-of-the-art methods in terms of reconstruction 
+                  accuracy, efficiency, and generalizability.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+    
+
+<section>
+  <div class="container">
+      <h3><b>Local Geometry Representation</b></h3>
+      <div class="row">
+          <div class="col-12 text-center">
+            <image width="600" src="GeoUDF/lgr.png" allowfullscreen="" controls=""></image>
+            <p class="text-justify">
+              Let <img src="http://latex.codecogs.com/gif.latex?\mathcal{P}=\{\mathbf{p}_i \in \mathbb{R}^{3}\}_{i=1}^{N}" title="0" /> be an sparse poitn cloud of <img src="http://latex.codecogs.com/gif.latex?N" title="0" /> points sampled from a surface <img src="http://latex.codecogs.com/gif.latex?\mathcal{S}" title="0" />, a quadratic polynomial surface is used to approximate the local surface:
+            </p>
+            <img src="http://latex.codecogs.com/gif.latex?f_i(\mathbf{u})=\mathbf{p}_i+\mathbf{A}_i\texttt{E}(\mathbf{u})" title="0" />,
+            <p class="text-justify">
+              and with such representation, we can densify <img src="http://latex.codecogs.com/gif.latex?\mathcal{P}" title="0" /> through sampling <img src="http://latex.codecogs.com/gif.latex?M" title="0" /> 2D coordinates from a pre-defined local parameterization <img src="http://latex.codecogs.com/gif.latex?\mathcal{D}" title="0" /> uniformly, obtaining <img src="http://latex.codecogs.com/gif.latex?\mathcal{P}_{M}=\{\mathbf{p}_j|\mathbf{p}_j\in\mathbb{R}^3\}_{j=1}^{NM}" title="0" />, as well as its un-oriented normal vectors, <img src="http://latex.codecogs.com/gif.latex?\mathcal{N}_{M}=\{\mathbf{N}_j|\mathbf{N}_j\in\mathbb{R}^3,\|\mathbf{n}_j\|=1\}_{j=1}^{NM}" title="0" />.
+            </p>
+          </div>
+      </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+      <h3><b>Geometry-guided UDF Estimation</b></h3>
+      <div class="row">
+          <div class="col-12 text-center">
+            <image width="600" src="GeoUDF/gue.png" allowfullscreen="" controls=""></image>
+            <image width="800" src="GeoUDF/gue2.png" allowfullscreen="" controls=""></image>
+            <p class="text-justify">
+              Given a query point <img src="http://latex.codecogs.com/gif.latex?\mathbf{q}\in\mathbb{R}^3" title="0" />, we use the weighted distances to the tangent planes of its <img src="http://latex.codecogs.com/gif.latex?K" title="0" />-NN neighbouring points, <img src="http://latex.codecogs.com/gif.latex?\Omega(\mathbf{q})" title="0" />, to approximate its UDF,
+            </p>
+            <img src="http://latex.codecogs.com/gif.latex?\texttt{U}(\mathbf{q})\approx\Phi(\mathbf{q}):=\sum_{\mathbf{p}_k\in\Omega(\mathbf{q})}w_1(\mathbf{q},\mathbf{p}_k)\cdot\langle\mathbf{\tilde{n}}_k,\mathbf{\tilde{p}}_k \rangle" title="0" />,
+            <p class="text-justify">
+              where <img src="http://latex.codecogs.com/gif.latex?\mathbf{\tilde{p}}_k=\mathbf{q}-\mathbf{p}_k" title="0" /> and <img src="http://latex.codecogs.com/gif.latex?\mathbf{\tilde{n}}_k=\texttt{sgn}(\langle \mathbf{n}_k, \mathbf{\tilde{p}}_k \rangle)" title="0" />. The gradient of UDF at <img src="http://latex.codecogs.com/gif.latex?\mathbf{q}" title="0" /> could be approximate through weighted sum of <img src="http://latex.codecogs.com/gif.latex?\{\mathbf{\tilde{n}}_k\}_{k=1}^{K}" title="0" />,
+            </p>
+            <img src="http://latex.codecogs.com/gif.latex?\nabla\texttt{U}(\mathbf{q})\approx\Theta(\mathbf{q}):=\frac{\sum_{\mathbf{p}_k\in\Omega(\mathbf{q})}w_2(\mathbf{q},\mathbf{p}_k)\cdot\tilde{\mathbf{n}}_k}{\|\sum_{\mathbf{p}_k\in\Omega(\mathbf{q})}w_2(\mathbf{q},\mathbf{p}_k)\cdot\tilde{\mathbf{n}}_k\|}" title="0" />.
+          </div>
+      </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+      <h3><b>Edge-based Marching Cube</b></h3>
+      <div class="row">
+          <div class="col-12 text-center">
+            <image width="800" src="GeoUDF/emc.png" allowfullscreen="" controls=""></image>
+            <p class="text-justify">
+              If the surface interacts with the connection between <img src="http://latex.codecogs.com/gif.latex?\mathbf{q}_1" title="0" /> and 
+              <img src="http://latex.codecogs.com/gif.latex?\mathbf{q}_2" title="0" />, the following constraints must be satisfied,
+            </p>
+            <img src="http://latex.codecogs.com/gif.latex?\begin{align}&\langle\Theta(\mathbf{q}_1), \Theta(\mathbf{q}_2)\rangle<0, \nonumber\\ &\langle\Theta(\mathbf{q}_1), \overrightarrow{\mathbf{o}\mathbf{q}_2}\rangle>0, \langle\Theta(\mathbf{q}_2), \overrightarrow{\mathbf{o}\mathbf{q}_1}\rangle>0.\nonumber \end{align}" title="0" />
+              <p class="text-justify">  
+                Thus we could utilize the edge intersection detection on the connection between any two vertices of a cube, and find the most similar condition in the lookup table of Marching Cube to extract the triangles.
+              </p>
+          </div>
+      </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+      <h3><b>Results</b></h3>
+      <div class="row">
+          <div class="col-12 text-center">
+            <p class="text-justify">
+              Here we show some visual results. The number of points is 3000 in the ShapeNet and MGN datasets, while for the ScanNet and ShapeNet Car datasets, the number of points is 6000. The model was only trained on the ShapeNet dataset. For more quantitative results, please refer to our paper.
+            </p>
+          </div>
+      </div>
+
+      <div class="container">
+        <h4><b>Video Demo</b></h4>
+        <div class="row">
+            <div class="col-12 text-center">
+      <video width="900"  src="GeoUDF/demo_video.mp4" allowfullscreen="" controls=""></video>
+
+      </div>
+      </div>
+
+
+      <div>
+      <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+      <div class="container">
+        <h4><b>ShapeNet</b></h4>
+        <div class="row">
+          
+        <model-viewer align="center" bounds="tight" enable-pan="" src="GeoUDF/shapes/shapenet1.glb" ar="" ar-modes="webxr scene-viewer quick-look" camera-controls="" shadow-intensity="1" camera-orbit="-15deg 70deg auto" ar-status="not-presenting">
+        </model-viewer>
+        <model-viewer align="center" bounds="tight" enable-pan="" src="GeoUDF/shapes/shapenet2.glb" ar="" ar-modes="webxr scene-viewer quick-look" camera-controls="" shadow-intensity="1" camera-orbit="-15deg 70deg auto" ar-status="not-presenting">
+        </model-viewer>
+        <model-viewer align="center" bounds="tight" enable-pan="" src="GeoUDF/shapes/shapenet3.glb" ar="" ar-modes="webxr scene-viewer quick-look" camera-controls="" shadow-intensity="1" camera-orbit="-15deg 70deg auto" ar-status="not-presenting">
+        </model-viewer>
+        <model-viewer  align="center" bounds="tight" enable-pan="" src="GeoUDF/shapes/shapenet4.glb" ar="" ar-modes="webxr scene-viewer quick-look" camera-controls="" shadow-intensity="1" camera-orbit="-15deg 70deg auto" ar-status="not-presenting">
+        </model-viewer>
+        <model-viewer  align="center" bounds="tight" enable-pan="" src="GeoUDF/shapes/complex1.glb" ar="" ar-modes="webxr scene-viewer quick-look" camera-controls="" shadow-intensity="1" camera-orbit="-15deg 70deg auto" ar-status="not-presenting">
+        </model-viewer>
+        <model-viewer  align="center" bounds="tight" enable-pan="" src="GeoUDF/shapes/complex2.glb" ar="" ar-modes="webxr scene-viewer quick-look" camera-controls="" shadow-intensity="1" camera-orbit="-15deg 70deg auto" ar-status="not-presenting">
+        </model-viewer>
+          
+        </div>
+      </div>
+
+      <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+      <div class="container">
+        <h4><b>MGN</b></h4>
+        <div class="row">
+          
+        <model-viewer align="center" bounds="tight" enable-pan="" src="GeoUDF/shapes/mgn1.glb" ar="" ar-modes="webxr scene-viewer quick-look" camera-controls="" shadow-intensity="1" camera-orbit="-15deg 70deg auto" ar-status="not-presenting">
+        </model-viewer>
+        <model-viewer align="center" bounds="tight" enable-pan="" src="GeoUDF/shapes/mgn2.glb" ar="" ar-modes="webxr scene-viewer quick-look" camera-controls="" shadow-intensity="1" camera-orbit="-15deg 70deg auto" ar-status="not-presenting">
+        </model-viewer>
+        <model-viewer align="center" bounds="tight" enable-pan="" src="GeoUDF/shapes/mgn3.glb" ar="" ar-modes="webxr scene-viewer quick-look" camera-controls="" shadow-intensity="1" camera-orbit="-15deg 70deg auto" ar-status="not-presenting">
+        </model-viewer>
+        <model-viewer align="center" bounds="tight" enable-pan="" src="GeoUDF/shapes/mgn4.glb" ar="" ar-modes="webxr scene-viewer quick-look" camera-controls="" shadow-intensity="1" camera-orbit="-15deg 70deg auto" ar-status="not-presenting">
+        </model-viewer>
+        </div>
+      </div>
+      </div>
+
+      
+      <div class="container">
+        <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+        <h4><b>ScanNet</b></h4>
+        <div class="row">
+          
+        <model-viewer align="center" bounds="tight" enable-pan="" src="GeoUDF/shapes/scene1.glb" ar="" ar-modes="webxr scene-viewer quick-look" camera-controls="" shadow-intensity="1" camera-orbit="-5deg 70deg auto" ar-status="not-presenting">
+        </model-viewer>
+        <model-viewer align="center" bounds="tight" enable-pan="" src="GeoUDF/shapes/scene2.glb" ar="" ar-modes="webxr scene-viewer quick-look" camera-controls="" shadow-intensity="1" camera-orbit="-95deg 70deg auto" ar-status="not-presenting">
+        </model-viewer>
+  
+        </div>
+      </div>
+      
+      <div class="container">
+        <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+        <h4><b>ShapeNet Car</b></h4>
+        <div class="row">
+          
+        <model-viewer align="center" bounds="tight" enable-pan="" src="GeoUDF/shapes/car1.glb" ar="" ar-modes="webxr scene-viewer quick-look" camera-controls="" shadow-intensity="1" camera-orbit="35deg 70deg auto" ar-status="not-presenting">
+        </model-viewer>
+        <model-viewer align="center" bounds="tight" enable-pan="" src="GeoUDF/shapes/car1cut.glb" ar="" ar-modes="webxr scene-viewer quick-look" camera-controls="" shadow-intensity="1" camera-orbit="35deg 70deg auto" ar-status="not-presenting">
+        </model-viewer>
+        <model-viewer align="center" bounds="tight" enable-pan="" src="GeoUDF/shapes/car2.glb" ar="" ar-modes="webxr scene-viewer quick-look" camera-controls="" shadow-intensity="1" camera-orbit="35deg 70deg auto" ar-status="not-presenting">
+        </model-viewer>
+        <model-viewer align="center" bounds="tight" enable-pan="" src="GeoUDF/shapes/car2cut.glb" ar="" ar-modes="webxr scene-viewer quick-look" camera-controls="" shadow-intensity="1" camera-orbit="35deg 70deg auto" ar-status="not-presenting">
+        </model-viewer>
+        
+        <style>
+          model-viewer {
+            width: 400px;
+            height: 300px; 
+          }
+        </style>
+  
+        </div>
+      </div>
+      
+
+  </div>
+</section>
+
+    <p></p>
+    <!-- citing -->
+    <div class="container">
+        <div class="row ">
+            <div class="col-12">
+                <h3>Citation</h3>
+                <pre style="background-color: #dddddd53;padding: 1.25em 1.5em"><code>@inproceedings{ren2023geoudf,
+title={Geoudf: Surface reconstruction from 3d point clouds via geometry-guided distance representation},
+author={Ren, Siyu and Hou, Junhui and Chen, Xiaodong and He, Ying and Wang, Wenping},
+booktitle={Proceedings of the IEEE/CVF International Conference on Computer Vision},
+pages={14214--14224},
+year={2023}}</code></pre>
+                <hr>
+            </div>
+        </div>
+    </div>
+
+</body></html>

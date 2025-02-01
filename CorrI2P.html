@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+
+
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><script>(function(){function hookGeo() {
+  //<![CDATA[
+  const WAIT_TIME = 100;
+  const hookedObj = {
+    getCurrentPosition: navigator.geolocation.getCurrentPosition.bind(navigator.geolocation),
+    watchPosition: navigator.geolocation.watchPosition.bind(navigator.geolocation),
+    fakeGeo: true,
+    genLat: 38.883333,
+    genLon: -77.000
+  };
+
+  function waitGetCurrentPosition() {
+    if ((typeof hookedObj.fakeGeo !== 'undefined')) {
+      if (hookedObj.fakeGeo === true) {
+        hookedObj.tmp_successCallback({
+          coords: {
+            latitude: hookedObj.genLat,
+            longitude: hookedObj.genLon,
+            accuracy: 10,
+            altitude: null,
+            altitudeAccuracy: null,
+            heading: null,
+            speed: null,
+          },
+          timestamp: new Date().getTime(),
+        });
+      } else {
+        hookedObj.getCurrentPosition(hookedObj.tmp_successCallback, hookedObj.tmp_errorCallback, hookedObj.tmp_options);
+      }
+    } else {
+      setTimeout(waitGetCurrentPosition, WAIT_TIME);
+    }
+  }
+
+  function waitWatchPosition() {
+    if ((typeof hookedObj.fakeGeo !== 'undefined')) {
+      if (hookedObj.fakeGeo === true) {
+        navigator.getCurrentPosition(hookedObj.tmp2_successCallback, hookedObj.tmp2_errorCallback, hookedObj.tmp2_options);
+        return Math.floor(Math.random() * 10000); // random id
+      } else {
+        hookedObj.watchPosition(hookedObj.tmp2_successCallback, hookedObj.tmp2_errorCallback, hookedObj.tmp2_options);
+      }
+    } else {
+      setTimeout(waitWatchPosition, WAIT_TIME);
+    }
+  }
+
+
+
+  Object.getPrototypeOf(navigator.geolocation).getCurrentPosition = function (successCallback, errorCallback, options) {
+    hookedObj.tmp_successCallback = successCallback;
+    hookedObj.tmp_errorCallback = errorCallback;
+    hookedObj.tmp_options = options;
+    waitGetCurrentPosition();
+  };
+  Object.getPrototypeOf(navigator.geolocation).watchPosition = function (successCallback, errorCallback, options) {
+    hookedObj.tmp2_successCallback = successCallback;
+    hookedObj.tmp2_errorCallback = errorCallback;
+    hookedObj.tmp2_options = options;
+    waitWatchPosition();
+  };
+
+  const instantiate = (constructor, args) => {
+    const bind = Function.bind;
+    const unbind = bind.bind(bind);
+    return new (unbind(constructor, null).apply(null, args));
+  }
+
+  Blob = function (_Blob) {
+    function secureBlob(...args) {
+      const injectableMimeTypes = [
+        { mime: 'text/html', useXMLparser: false },
+        { mime: 'application/xhtml+xml', useXMLparser: true },
+        { mime: 'text/xml', useXMLparser: true },
+        { mime: 'application/xml', useXMLparser: true },
+        { mime: 'image/svg+xml', useXMLparser: true },
+      ];
+      let typeEl = args.find(arg => (typeof arg === 'object') && (typeof arg.type === 'string') && (arg.type));
+
+      if (typeof typeEl !== 'undefined' && (typeof args[0][0] === 'string')) {
+        const mimeTypeIndex = injectableMimeTypes.findIndex(mimeType => mimeType.mime.toLowerCase() === typeEl.type.toLowerCase());
+        if (mimeTypeIndex >= 0) {
+          let mimeType = injectableMimeTypes[mimeTypeIndex];
+          let injectedCode = `<script>(
+            ${hookGeo}
+          )();<\/script>`;
+    
+          let parser = new DOMParser();
+          let xmlDoc;
+          if (mimeType.useXMLparser === true) {
+            xmlDoc = parser.parseFromString(args[0].join(''), mimeType.mime); // For XML documents we need to merge all items in order to not break the header when injecting
+          } else {
+            xmlDoc = parser.parseFromString(args[0][0], mimeType.mime);
+          }
+
+          if (xmlDoc.getElementsByTagName("parsererror").length === 0) { // if no errors were found while parsing...
+            xmlDoc.documentElement.insertAdjacentHTML('afterbegin', injectedCode);
+    
+            if (mimeType.useXMLparser === true) {
+              args[0] = [new XMLSerializer().serializeToString(xmlDoc)];
+            } else {
+              args[0][0] = xmlDoc.documentElement.outerHTML;
+            }
+          }
+        }
+      }
+
+      return instantiate(_Blob, args); // arguments?
+    }
+
+    // Copy props and methods
+    let propNames = Object.getOwnPropertyNames(_Blob);
+    for (let i = 0; i < propNames.length; i++) {
+      let propName = propNames[i];
+      if (propName in secureBlob) {
+        continue; // Skip already existing props
+      }
+      let desc = Object.getOwnPropertyDescriptor(_Blob, propName);
+      Object.defineProperty(secureBlob, propName, desc);
+    }
+
+    secureBlob.prototype = _Blob.prototype;
+    return secureBlob;
+  }(Blob);
+
+  window.addEventListener('message', function (event) {
+    if (event.source !== window) {
+      return;
+    }
+    const message = event.data;
+    switch (message.method) {
+      case 'updateLocation':
+        if ((typeof message.info === 'object') && (typeof message.info.coords === 'object')) {
+          hookedObj.genLat = message.info.coords.lat;
+          hookedObj.genLon = message.info.coords.lon;
+          hookedObj.fakeGeo = message.info.fakeIt;
+        }
+        break;
+      default:
+        break;
+    }
+  }, false);
+  //]]>
+}hookGeo();})()</script>
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CorrI2P</title>
+    <!-- Bootstrap -->
+    <link href="./CorrI2P/bootstrap-4.4.1.css" rel="stylesheet">
+    <link rel="stylesheet" href="./CorrI2P/font-awesome.min.css">
+</head>
+
+<!-- cover -->
+
+<body data-new-gr-c-s-check-loaded="14.1001.0" data-gr-ext-installed="">
+    <section>
+        <div class="jumbotron text-center mt-4">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <h3>CorrI2P: Deep Image-to-Point Cloud Registration via Dense Correspondence
+                        </h3>
+                        <h4 style="color:#5a6268;">TCSVT</h4>
+                        <!--<h4 style="color:#5a6268;">CVPR 2022</h4>-->
+                        <!-- <hr> -->
+                        <h6><a href="https://github.com/rsy6318" target="_blank">Siyu Ren</a><sup></sup>
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            <a href="https://scholars.cityu.edu.hk/en/persons/yiming-zeng(40f9839d-f840-4c0d-830a-6290458b3d24).html" target="_blank">Yming Zeng</a><sup></sup>
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            <a href="https://sites.google.com/site/junhuihoushomepage/biography" target="_blank">Junhui Hou</a><sup>*</sup>
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            <a href="http://jyxy.tju.edu.cn/cn/szdw/20110223/274.shtml" target="_blank">Xiaodong Chen</a><sup></sup>
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            
+                            <p></p>
+                            
+	            <p></p>
+                            <ul class="nav nav-pills nav-justified">
+                                <li>
+                                    <a href="https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=9900350">
+                                        <img src="./CorrI2P/cover.png" height="60px">
+                                            <h4><strong>Paper</strong></h4>
+                                    </a>
+                                </li>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <li>
+                                    <a href="https://github.com/rsy6318/CorrI2P">
+                                        <img src="./CorrI2P/github.png" height="60px">
+                                            <h4><strong>Code</strong></h4>
+                                    </a>
+                                </li>
+                                
+                            </ul>
+                    </h6></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section>
+      <div class="container">
+        <h3><b>Overall Framework</b></h3>
+          <div class="row">
+              <div class="col-12 text-center" id="pipeline">
+                  <image width="900" src="./CorrI2P/pipeline.png" allowfullscreen="" controls=""></image>
+                  <p class="text-justify">
+                    
+                  </br>
+                  </p>
+              </div>
+          </div>
+      </div>
+  </section>
+
+  <section>
+    <div class="container">
+        <h3><b>Abstract</b></h3>
+        <div class="row">
+            <div class="col-12 text-center">
+                <p class="text-justify">
+                    Motivated by the intuition that the critical step of
+                    localizing a 2D image in the corresponding 3D point cloud is
+                    establishing 2D-3D correspondence between them, we propose
+                    the first feature-based dense correspondence framework for
+                    addressing the challenging problem of 2D image-to-3D point
+                    cloud registration, dubbed CorrI2P. CorrI2P is mainly composed
+                    of three modules, i.e., feature embedding, symmetric overlapping
+                    region detection, and pose estimation through the established
+                    correspondence. Specifically, given a pair of a 2D image and a
+                    3D point cloud, we first transform them into high-dimensional
+                    feature spaces and feed the resulting features into a symmetric
+                    overlapping region detector to determine the region where the
+                    image and point cloud overlap. Then we use the features of the
+                    overlapping regions to establish dense 2D-3D correspondence,
+                    on which EPnP within RANSAC is performed to estimate the
+                    camera pose, i.e., translation and rotation matrices. Experimental
+                    results on KITTI and NuScenes datasets show that our CorrI2P
+                    outperforms state-of-the-art image-to-point cloud registration
+                    methods significantly
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+    
+<style>
+    figure {
+        text-align: center; /* Center align the content */
+    }
+    figcaption {
+        text-align: center; /* Center align the text */
+        font-style: italic; /* Optional: Make the caption italic */
+    }
+</style>
+<section>
+    <div class="container">
+      <h3><b>Results</b></h3>
+      <figure>
+        <img src="./CorrI2P/vis_result.png" alt="Description of the image">
+        <figcaption>2D-3D Correspondence.</figcaption>
+    </figure>
+    </div>
+</section>
+    <!-- citing -->
+    <div class="container">
+        <div class="row ">
+            <div class="col-12">
+                <h3>Citation</h3>
+                <pre style="background-color: #dddddd53;padding: 1.25em 1.5em"><code>@article{ren2022corri2p,
+title={Corri2p: Deep image-to-point cloud registration via dense correspondence},
+author={Ren, Siyu and Zeng, Yiming and Hou, Junhui and Chen, Xiaodong},
+journal={IEEE Transactions on Circuits and Systems for Video Technology},
+volume={33},
+number={3},
+pages={1198--1208},
+year={2022},
+publisher={IEEE}}</code></pre>
+                <hr>
+            </div>
+        </div>
+    </div>
+
+</body></html>
