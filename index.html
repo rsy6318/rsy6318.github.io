@@ -40,12 +40,6 @@
     <section id="about" class="py-5">
         <div class="container">
             <div class="row">
-                <div class="col-lg-4 text-center">
-                    <img src="profile.jpg" alt="Profile Photo" class="img-fluid rounded-circle mb-3" style="width: 200px;">
-                    <h2>John Doe</h2>
-                    <p class="lead">PhD Candidate</p>
-                    <p>Department of Computer Science, XYZ University</p>
-                </div>
                 <div class="col-lg-8">
                     <h2>About Me</h2>
                     <p>
@@ -58,6 +52,12 @@
                         During my studies, I have participated in several national research projects and published multiple papers in top-tier conferences and journals.
                     </p>
                 </div>
+                <div class="col-lg-4 text-center">
+                    <img src="profile.jpg" alt="Profile Photo" class="img-fluid rounded-circle mb-3" style="width: 200px;">
+                    <h2>John Doe</h2>
+                    <p class="lead">PhD Candidate</p>
+                    <p>Department of Computer Science, XYZ University</p>
+                </div>
             </div>
         </div>
     </section>
@@ -66,53 +66,96 @@
     <section id="publications" class="bg-light py-5">
         <div class="container">
             <h2 class="text-center mb-4">Publications</h2>
-            <div class="row">
+
+            <!-- Published Papers -->
+            <h3 class="mb-3">Published</h3>
+            <div class="row mb-4 align-items-stretch">
                 <!-- Paper 1 -->
                 <div class="col-md-8">
-                    <div class="card mb-4">
+                    <div class="card h-100">
                         <div class="card-body">
                             <h5 class="card-title">Deep Learning for Text Classification</h5>
                             <p class="card-text">
-                                John Doe, Jane Smith. <em>Journal of Artificial Intelligence</em>, 20XX.
+                                <strong>John Doe</strong>, Jane Smith<sup>*</sup>. <em>Journal of Artificial Intelligence</em>, 20XX.
                             </p>
-                            <a href="#" class="btn btn-primary">Read Paper</a>
+                            <div class="mt-3">
+                                <a href="#" class="btn btn-outline-primary btn-sm">Paper</a>
+                                <a href="#" class="btn btn-outline-secondary btn-sm">Code</a>
+                                <a href="#" class="btn btn-outline-success btn-sm">Project</a>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <img src="images/paper1.jpg" alt="Paper 1" class="img-fluid rounded mb-4">
+                    <img src="images/paper1.jpg" alt="Paper 1" class="img-fluid rounded h-100" style="object-fit: cover;">
                 </div>
+            </div>
 
+            <div class="row mb-4 align-items-stretch">
                 <!-- Paper 2 -->
                 <div class="col-md-8">
-                    <div class="card mb-4">
+                    <div class="card h-100">
                         <div class="card-body">
                             <h5 class="card-title">An Improved Clustering Algorithm</h5>
                             <p class="card-text">
-                                John Doe, Alice Johnson. <em>Journal of Machine Learning</em>, 20XX.
+                                <strong>John Doe</strong>, Alice Johnson<sup>*</sup>. <em>Journal of Machine Learning</em>, 20XX.
                             </p>
-                            <a href="#" class="btn btn-primary">Read Paper</a>
+                            <div class="mt-3">
+                                <a href="#" class="btn btn-outline-primary btn-sm">Paper</a>
+                                <a href="#" class="btn btn-outline-secondary btn-sm">Code</a>
+                                <a href="#" class="btn btn-outline-success btn-sm">Project</a>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <img src="images/paper2.jpg" alt="Paper 2" class="img-fluid rounded mb-4">
+                    <img src="images/paper2.jpg" alt="Paper 2" class="img-fluid rounded h-100" style="object-fit: cover;">
                 </div>
+            </div>
 
+            <!-- Under Review Papers -->
+            <h3 class="mb-3">Under Review</h3>
+            <div class="row mb-4 align-items-stretch">
                 <!-- Paper 3 -->
                 <div class="col-md-8">
-                    <div class="card mb-4">
+                    <div class="card h-100">
                         <div class="card-body">
                             <h5 class="card-title">Reinforcement Learning for Robotics</h5>
                             <p class="card-text">
-                                John Doe, Bob Brown. <em>Journal of Robotics</em>, 20XX.
+                                <strong>John Doe</strong>, Bob Brown<sup>*</sup>. <em>Journal of Robotics</em>, Under Review.
                             </p>
-                            <a href="#" class="btn btn-primary">Read Paper</a>
+                            <div class="mt-3">
+                                <a href="#" class="btn btn-outline-primary btn-sm">Paper</a>
+                                <a href="#" class="btn btn-outline-secondary btn-sm">Code</a>
+                                <a href="#" class="btn btn-outline-success btn-sm">Project</a>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <img src="images/paper3.jpg" alt="Paper 3" class="img-fluid rounded mb-4">
+                    <img src="images/paper3.jpg" alt="Paper 3" class="img-fluid rounded h-100" style="object-fit: cover;">
+                </div>
+            </div>
+
+            <div class="row mb-4 align-items-stretch">
+                <!-- Paper 4 -->
+                <div class="col-md-8">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">A Novel Approach to NLP</h5>
+                            <p class="card-text">
+                                <strong>John Doe</strong>, Emily White<sup>*</sup>. <em>Journal of Natural Language Processing</em>, Under Review.
+                            </p>
+                            <div class="mt-3">
+                                <a href="#" class="btn btn-outline-primary btn-sm">Paper</a>
+                                <a href="#" class="btn btn-outline-secondary btn-sm">Code</a>
+                                <a href="#" class="btn btn-outline-success btn-sm">Project</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <img src="images/paper4.jpg" alt="Paper 4" class="img-fluid rounded h-100" style="object-fit: cover;">
                 </div>
             </div>
         </div>

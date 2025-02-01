@@ -22,3 +22,14 @@ section {
     border: none;
     padding: 10px 0;
 }
+
+/* Ensure images and cards have the same height */
+.img-fluid.rounded {
+    object-fit: cover;
+    height: 100%;
+}
+
+/* Style for buttons */
+.btn-outline-primary, .btn-outline-secondary, .btn-outline-success {
+    margin-right: 5px;
+}
