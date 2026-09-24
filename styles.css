@@ -69,13 +69,14 @@ section {
     overscroll-behavior: contain;   /* 滚到底不要带着整页滚 */
     scroll-snap-type: y mandatory;
     -webkit-overflow-scrolling: touch;  /* iOS 惯性滚动 */
-    scrollbar-width: thin;                            /* Firefox：细滚动条 */
-    scrollbar-color: rgba(13, 110, 253, .38) transparent;
 }
 
-/* Chrome / Edge / Safari：细滚动条，配色跟日期高亮一致 */
+/* 右侧细滚动条（Chrome / Edge / Safari）。
+   注意：这里刻意不用标准的 scrollbar-width / scrollbar-color——
+   Chrome 一旦看到 scrollbar-width，就会忽略下面全部 ::-webkit-scrollbar 规则，
+   退回带上下箭头的系统滚动条。标准属性只在 Firefox 里生效，见下方 @supports。 */
 .news-list::-webkit-scrollbar {
-    width: 6px;
+    width: 8px;
 }
 
 .news-list::-webkit-scrollbar-track {
@@ -84,7 +85,7 @@ section {
 
 .news-list::-webkit-scrollbar-thumb {
     background-color: rgba(13, 110, 253, .38);
-    border-radius: 3px;
+    border-radius: 4px;
 }
 
 .news-list::-webkit-scrollbar-thumb:hover {
@@ -100,6 +101,15 @@ section {
 
 .news-list::-webkit-scrollbar-corner {
     background: transparent;
+}
+
+/* Firefox：-moz-appearance 是 Firefox 独有属性，用它把标准滚动条属性
+   只作用在 Firefox 上，不影响 Chrome 对上面 ::-webkit-scrollbar 的使用 */
+@supports (-moz-appearance: none) {
+    .news-list {
+        scrollbar-width: thin;
+        scrollbar-color: rgba(13, 110, 253, .38) transparent;
+    }
 }
 
 .news-list:focus-visible {
