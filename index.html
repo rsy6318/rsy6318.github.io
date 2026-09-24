@@ -4,33 +4,47 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- ================== SEO  ================== -->
-    <title>Siyu Ren</title>
+    <title>Siyu Ren — 3D Geometry, Generative Models &amp; Embodied AI</title>
+    <link rel="canonical" href="https://rsy6318.github.io/">
+    <!-- Icons -->
+    <link rel="icon" href="favicon.ico" sizes="any">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="apple-touch-icon" href="favicon-180.png">
     <!-- Meta Tags -->
-    <meta name="description" content="Siyu Ren: Joint PhD Candidate in Computer Graphics and Geometry Processing. Publications in ICCV, ECCV, TPAMI. Research on Implicit Geometric Representations.">
-    <meta name="keywords" content="Siyu Ren, Computer Graphics, Geometry Processing, Implicit Representations, SALS, GeoUDF, 3D Reconstruction, Tianjin University, City University of Hong Kong">
+    <meta name="description" content="Siyu Ren — Senior Engineer at Huawei (2012 Labs), working on embodied intelligence. Ph.D. from Tianjin University &amp; City University of Hong Kong. Research on implicit geometry representation, 3D reconstruction and compression. 11 papers incl. ICLR, ICCV, ECCV, TPAMI. Area Chair of ICLR 2026/2027.">
+    <meta name="author" content="Siyu Ren">
+    <meta name="keywords" content="Siyu Ren, Embodied Intelligence, Computer Graphics, Geometry Processing, Implicit Representations, SALS, GeoUDF, NeCGS, 3D Reconstruction, 3D Generation, Tianjin University, City University of Hong Kong">
     <!-- Open Graph Tags -->
-    <meta property="og:title" content="Siyu Ren | Researcher in 3D Geometry Processing">
-    <meta property="og:description" content="PhD Candidate specializing in implicit geometric representations and 3D reconstruction. Published in top computer vision conferences.">
+    <meta property="og:type" content="profile">
+    <meta property="og:title" content="Siyu Ren — 3D Geometry, Generative Models &amp; Embodied AI">
+    <meta property="og:description" content="Senior Engineer at Huawei (2012 Labs) working on embodied intelligence. Ph.D. from Tianjin University &amp; City University of Hong Kong. 11 papers incl. ICLR, ICCV, ECCV, TPAMI; Area Chair of ICLR 2026/2027.">
     <meta property="og:image" content="https://rsy6318.github.io/profile.jpg">
     <meta property="og:url" content="https://rsy6318.github.io">
+    <!-- Twitter / X Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Siyu Ren — 3D Geometry, Generative Models &amp; Embodied AI">
+    <meta name="twitter:description" content="Senior Engineer at Huawei (2012 Labs) working on embodied intelligence. 11 papers incl. ICLR, ICCV, ECCV, TPAMI; Area Chair of ICLR 2026/2027.">
+    <meta name="twitter:image" content="https://rsy6318.github.io/profile.jpg">
     <!-- Schema Markup -->
     <script type="application/ld+json">
     {
-        "@context": "http://schema.org",
+        "@context": "https://schema.org",
         "@type": "Person",
         "name": "Siyu Ren",
         "url": "https://rsy6318.github.io",
+        "image": "https://rsy6318.github.io/profile.jpg",
         "sameAs": [
             "https://github.com/rsy6318",
-            "https://scholar.google.com/citations?user=xSm7_VwAAAAJ&hl",
-            "https://linkedin.com/in/YOUR_LINKEDIN"
+            "https://scholar.google.com/citations?user=xSm7_VwAAAAJ&hl"
         ],
+        "worksFor": {"@type": "Organization", "name": "Huawei", "department": "2012 Labs"},
         "alumniOf": [
             {"@type": "CollegeOrUniversity", "name": "Tianjin University"},
             {"@type": "CollegeOrUniversity", "name": "City University of Hong Kong"}
         ],
-        "jobTitle": "PhD Candidate",
-        "researchInterest": ["Geometry Processing", "Computer Graphics", "3D Reconstruction"]
+        "jobTitle": "Senior Engineer",
+        "knowsAbout": ["Embodied Intelligence", "Geometry Processing", "Computer Graphics", "Implicit Geometry Representation", "3D Reconstruction", "3D Compression"],
+        "award": ["Area Chair, ICLR 2026", "Area Chair, ICLR 2027", "Peter Ho Conference Scholarships, 2024"]
     }
     </script>
     <!-- ================== SEO ================== -->
@@ -44,22 +58,30 @@
     <!-- Navigation Bar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="#">Siyu Ren's Homepage</a>
+            <a class="navbar-brand" href="#" data-zh="任思宇的个人主页">Siyu Ren's Homepage</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="#about">About Me</a>
+                        <a class="nav-link" href="#about" data-zh="关于我">About Me</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#publications">Selected Publications</a>
+                        <a class="nav-link" href="#news" data-zh="最新动态">News</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#awards">Awards</a>
+                        <a class="nav-link" href="#publications" data-zh="代表性论文">Selected Publications</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#service" data-zh="学术服务">Research Service</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#awards" data-zh="荣誉奖励">Awards</a>
                     </li>
                 </ul>
+                <button id="langToggle" class="btn btn-outline-light btn-sm ms-lg-3 mt-2 mt-lg-0" type="button"
+                        aria-label="Switch to Chinese">中文</button>
             </div>
         </div>
     </nav>
@@ -68,38 +90,86 @@
     <section id="about" class="py-5">
         <div class="container">
             <div class="row">
-                <div class="col-lg-4 text-center">
-                    <img src="profile.jpg" alt="Profile Photo" class="img-fluid rounded-circle mb-3" style="width: 200px;">
-                    <h2>Siyu Ren</h2>
-                    <!--<p class="lead">PhD Candidate</p>-->
-                    <p>Tianjin University & City University of Hong Kong</p>
+                <!-- 桌面端：文字在左、照片与联系方式在右。
+                     order-lg-* 只作用于 lg 及以上，移动端仍保持"照片在上、文字在下"。 -->
+                <div class="col-lg-4 text-center order-lg-2 mb-4 mb-lg-0">
+                    <img src="profile.jpg" alt="Siyu Ren" class="img-fluid rounded-circle mb-3" style="width: 200px;">
+                    <h1 class="h3 mb-1" data-zh="任思宇">Siyu Ren</h1>
                     <!-- Contact Information -->
-                    <p class="text-left" style="margin-left: 20px;">
-                        Email: siyuren2-c@my.cityu.edu.hk<br>
-                        GitHub: <a href="https://github.com/rsy6318">https://github.com/rsy6318</a>
+                    <div class="contact-info">
+                        <span data-zh="邮箱">Email</span>: <a href="mailto:siyuren2-c@my.cityu.edu.hk">siyuren2-c@my.cityu.edu.hk</a><br>
+                        <span data-zh="GitHub">GitHub</span>: <a href="https://github.com/rsy6318">rsy6318</a><br>
+                        <span data-zh="学术主页">Scholar</span>: <a href="https://scholar.google.com/citations?user=xSm7_VwAAAAJ&amp;hl">Google Scholar</a>
+                    </div>
+                </div>
+                <div class="col-lg-8 order-lg-1">
+                    <h2 class="text-start mb-4" data-zh="关于我">About Me</h2>
+                    <p data-zh="我目前是<strong>华为</strong> 2012 实验室高级工程师，从事<strong>具身智能</strong>与机器人学习方向的研究。2025 年通过联合培养获得双博士学位——<a href=&quot;https://www.tju.edu.cn/&quot;><strong>天津大学</strong></a>光学工程博士（2025 年 7 月）与<a href=&quot;https://www.cityu.edu.hk/&quot;><strong>香港城市大学</strong></a>电脑科学博士（2025 年 10 月），导师为<a href=&quot;https://sites.google.com/site/junhuihoushomepage/biography?authuser=0&quot;><strong>侯军辉</strong></a>教授与<strong>陈晓冬</strong>教授。此前于 2018 年获天津大学工学学士学位。">
+                        I am a Senior Engineer at <strong>Huawei</strong> (2012 Labs), working on
+                        <strong>embodied intelligence</strong> and robot learning.
+                        I received dual Ph.D. degrees in 2025 through a joint doctoral program between
+                        <a href="https://www.tju.edu.cn/"><strong>Tianjin University</strong></a>
+                        (Optical Engineering, July 2025) and
+                        <a href="https://www.cityu.edu.hk/"><strong>City University of Hong Kong</strong></a>
+                        (Computer Science, October 2025), advised by Prof.
+                        <a href="https://sites.google.com/site/junhuihoushomepage/biography?authuser=0"><strong>Junhui Hou</strong></a>
+                        and Prof. <strong>Xiaodong Chen</strong>.
+                        Before that, I received my B.Eng. from Tianjin University in 2018.
+                    </p>
+                    <p data-zh="我的研究兴趣位于<strong>几何处理</strong>、<strong>计算机图形学</strong>与<strong>具身智能</strong>的交叉领域，重点关注<strong>隐式与可微几何表示</strong>，并将其应用于<strong>三维重建、压缩与机器人系统</strong>。">
+                        My research lies at the intersection of <strong>geometry processing</strong>,
+                        <strong>computer graphics</strong>, and <strong>embodied intelligence</strong>,
+                        with a focus on <strong>implicit and differentiable geometry representations</strong>
+                        and their applications in <strong>3D reconstruction, compression, and robotic systems</strong>.
                     </p>
                 </div>
-                <div class="col-lg-8">
-                    <h2>About Me</h2>
-                    <p>
-                        I am <strong>Siyu</strong>, currently working at <strong>Huawei</strong>, where I focus on research and development in <strong>Embodied Intelligence</strong>.
-                        I received my Ph.D. through a joint doctoral program between
-                        <a href="https://www.tju.edu.cn/"><strong>Tianjin University</strong></a> 
-                        and <a href="https://www.cityu.edu.hk/"><strong>City University of Hong Kong</strong></a>. 
-                        During my doctoral studies at Tianjin University, 
-                        I have had the privilege of joining 
-                        Prof. <a href="https://sites.google.com/site/junhuihoushomepage/biography?authuser=0"><strong>Junhui Hou</strong></a>'s research group 
-                        at City University of Hong Kong, 
-                        where I have been able to deepen my knowledge and contribute to cutting-edge research. 
-                        My research interests lie in <strong>Geometry Processing</strong>, <strong>Computer Graphics</strong>, and <strong>Embodied Intelligence</strong>,
-                        with a particular focus on <strong>Implicit Geometry Representation</strong> and its applications in intelligent robotic systems. 
-                        <!-- I am passionate about exploring innovative solutions to complex problems and applying my findings to real-world challenges.-- -->
-                    </p>
-                    <p>
-                        Before that, I received my Bachelor's degree from <strong>Tianjin University</strong> in 2018.
-                        During my studies, I have published multiple papers in top-tier conferences and journals.
-                    </p>
-                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- News Section: 一次显示 3 条，滚轮 / 触屏拖动整体向上滚动推进；文字可正常选中复制 -->
+    <section id="news" class="bg-light py-4">
+        <div class="container">
+            <h2 class="text-start mb-4" data-zh="最新动态">News</h2>
+            <div class="news-slider">
+                <ul class="news-list" tabindex="0" aria-label="News list, scrollable">
+                    <li class="news-item">
+                        <span class="news-date">2026.09</span>
+                        <span class="news-text" data-zh="担任 <em>ICLR 2027</em> 领域主席（Area Chair）。">Area Chair for <em>ICLR 2027</em>.</span>
+                    </li>
+                    <li class="news-item">
+                        <span class="news-date">2026.01</span>
+                        <span class="news-text" data-zh="一篇论文被 <em>ICLR 2026</em> 接收。">One paper accepted to <em>ICLR 2026</em>.</span>
+                    </li>
+                    <li class="news-item">
+                        <span class="news-date">2025.11</span>
+                        <span class="news-text" data-zh="加入<em>华为 2012 实验室</em>。">Joined <em>Huawei 2012 Labs</em>.</span>
+                    </li>
+                    <li class="news-item">
+                        <span class="news-date">2025.10</span>
+                        <span class="news-text" data-zh="获<em>香港城市大学</em>博士学位。">Ph.D. from <em>City University of Hong Kong</em>.</span>
+                    </li>
+                    <li class="news-item">
+                        <span class="news-date">2025.09</span>
+                        <span class="news-text" data-zh="担任 <em>ICLR 2026</em> 领域主席（Area Chair）。">Area Chair for <em>ICLR 2026</em>.</span>
+                    </li>
+                    <li class="news-item">
+                        <span class="news-date">2025.07</span>
+                        <span class="news-text" data-zh="获<em>天津大学</em>博士学位。">Ph.D. from <em>Tianjin University</em>.</span>
+                    </li>
+                    <li class="news-item">
+                        <span class="news-date">2025.07</span>
+                        <span class="news-text" data-zh="一篇论文被 <em>ICCV 2025</em> 接收。">One paper accepted to <em>ICCV 2025</em>.</span>
+                    </li>
+                    <li class="news-item">
+                        <span class="news-date">2025.04</span>
+                        <span class="news-text" data-zh="一篇论文被 <em>TPAMI</em> 接收。">One paper accepted to <em>TPAMI</em>.</span>
+                    </li>
+                    <li class="news-item">
+                        <span class="news-date">2025.01</span>
+                        <span class="news-text" data-zh="一篇论文被 <em>ICLR 2025</em> 接收。">One paper accepted to <em>ICLR 2025</em>.</span>
+                    </li>
+                </ul>
             </div>
         </div>
     </section>
@@ -107,7 +177,7 @@
     <!-- Publications Section -->
     <section id="publications" class="bg-light py-5">
         <div class="container">
-            <h2 class="text-left mb-4">Selected Publications</h2>
+            <h2 class="text-start mb-4" data-zh="代表性论文">Selected Publications</h2>
 
 <div class="row mb-4 align-items-stretch">
     <!-- NeCGS -->
@@ -119,7 +189,7 @@
                     <h5 class="card-title">Implicit Representation of 3D Geometry: A Comprehensive Survey, Benchmark, and Future Directions</h5>
                     <p class="card-text">
                         Jiazhi Xia, Chen He, Chuanxiang Yang, <strong>Siyu Ren</strong>, Junhui Hou, Ying He, and Wenping Wang.<br>
-                        <em>Under Review</em>.
+                        <em data-zh="审稿中">Under Review</em>.
                     </p>
                 </div>
                 <!-- 图片 -->
@@ -140,13 +210,12 @@
                 <div class="flex-grow-1">
                     <h5 class="card-title">Neural Compression of 3D Meshes using Sparse Implicit Representation</h5>
                     <p class="card-text">
-                        Jianqiang Wang*, <strong>Siyu Ren*</strong>, Junhui Hou. (* Equal Contribution) <br>
+                        Jianqiang Wang*, <strong>Siyu Ren*</strong>, Junhui Hou. (<span data-zh="共同一作">* Equal Contribution</span>, <strong data-zh="共同第一作者">Co-First Author</strong>) <br>
                         <em>International Conference on Learning Representations (ICLR)</em>, 2026.
                     </p>
                     <div class="mt-3">
-                        <a href="https://openreview.net/challenge?redirect=%2Fforum%3Fid%3DAzsN1qdLwv" class="btn btn-outline-primary btn-sm">Paper</a>
-                        <a href="https://github.com/yydlmzyz1/SIR-SNC" class="btn btn-outline-secondary btn-sm">Code</a>
-                        <!--<a href="#" class="btn btn-outline-success btn-sm">Website</a>-->
+                        <a href="https://openreview.net/forum?id=AzsN1qdLwv" class="btn btn-outline-primary btn-sm" data-zh="论文">Paper</a>
+                        <a href="https://github.com/yydlmzyz1/SIR-SNC" class="btn btn-outline-secondary btn-sm" data-zh="代码">Code</a>
                     </div>
                 </div>
                 <!-- 图片 -->
@@ -167,13 +236,12 @@
                 <div class="flex-grow-1">
                     <h5 class="card-title">NeCGS: Neural Compression for 3D Geometry Sets</h5>
                     <p class="card-text">
-                        <strong>Siyu Ren</strong>, Junhui Hou, Weiyao Lin, Wenping Wang. <br>
+                        <strong>Siyu Ren</strong>, Junhui Hou, Weiyao Lin, Wenping Wang. (<strong data-zh="第一作者">First Author</strong>) <br>
                         <em>International Conference on Computer Vision (ICCV)</em>, 2025.
                     </p>
                     <div class="mt-3">
-                        <a href="https://arxiv.org/abs/2405.15034" class="btn btn-outline-primary btn-sm">Paper</a>
-                        <a href="https://github.com/rsy6318/NeCGS" class="btn btn-outline-secondary btn-sm">Code</a>
-                        <!--<a href="#" class="btn btn-outline-success btn-sm">Website</a>-->
+                        <a href="https://arxiv.org/abs/2405.15034" class="btn btn-outline-primary btn-sm" data-zh="论文">Paper</a>
+                        <a href="https://github.com/rsy6318/NeCGS" class="btn btn-outline-secondary btn-sm" data-zh="代码">Code</a>
                     </div>
                 </div>
                 <!-- 图片 -->
@@ -197,13 +265,12 @@
                 <div class="flex-grow-1">
                     <h5 class="card-title">Shape as Line Segments: Accurate and Flexible Implicit Surface Representation</h5>
                     <p class="card-text">
-                        <strong>Siyu Ren</strong>, Junhui Hou. <br>
+                        <strong>Siyu Ren</strong>, Junhui Hou. (<strong data-zh="第一作者">First Author</strong>) <br>
                         <em>International Conference on Learning Representations (ICLR)</em>, 2025.
                     </p>
                     <div class="mt-3">
-                        <a href="https://openreview.net/forum?id=RavSZTIe2s&referrer=%5BAuthor%20Console%5D(%2Fgroup%3Fid%3DICLR.cc%2F2025%2FConference%2FAuthors%23your-submissions)" class="btn btn-outline-primary btn-sm">Paper</a>
-                        <a href="https://github.com/rsy6318/SALS" class="btn btn-outline-secondary btn-sm">Code</a>
-                        <!--<a href="#" class="btn btn-outline-success btn-sm">Website</a>-->
+                        <a href="https://openreview.net/forum?id=RavSZTIe2s" class="btn btn-outline-primary btn-sm" data-zh="论文">Paper</a>
+                        <a href="https://github.com/rsy6318/SALS" class="btn btn-outline-secondary btn-sm" data-zh="代码">Code</a>
                     </div>
                 </div>
                 <!-- 图片 -->
@@ -227,13 +294,13 @@
                 <div class="flex-grow-1">
                     <h5 class="card-title">DDM: A Metric for Comparing 3D Shapes Using Directional Distance Fields</h5>
                     <p class="card-text">
-                        <strong>Siyu Ren</strong>, Junhui Hou, Xidaodong Chen, Hongkai Xiong, and Wenping Wang. <br>
+                        <strong>Siyu Ren</strong>, Junhui Hou, Xiaodong Chen, Hongkai Xiong, and Wenping Wang. (<strong data-zh="第一作者">First Author</strong>) <br>
                         <em>IEEE Transactions on Pattern Analysis and Machine Intelligence (T-PAMI)</em>, 2025.
                     </p>
                     <div class="mt-3">
-                        <a href="https://ieeexplore.ieee.org/abstract/document/10964075" class="btn btn-outline-primary btn-sm">Paper</a>
-                        <a href="https://github.com/rsy6318/DDM" class="btn btn-outline-secondary btn-sm">Code</a>
-                        <!--<a href="#" class="btn btn-outline-success btn-sm">Website</a>-->
+                        <a href="https://ieeexplore.ieee.org/abstract/document/10964075" class="btn btn-outline-primary btn-sm" data-zh="论文">Paper</a>
+                        <a href="https://doi.org/10.1109/TPAMI.2025.3560297" class="btn btn-outline-primary btn-sm">DOI</a>
+                        <a href="https://github.com/rsy6318/DDM" class="btn btn-outline-secondary btn-sm" data-zh="代码">Code</a>
                     </div>
                 </div>
                 <!-- 图片 -->
@@ -259,9 +326,8 @@
                         <em>IEEE Transactions on Pattern Analysis and Machine Intelligence (T-PAMI)</em>, 2025.
                     </p>
                     <div class="mt-3">
-                        <a href="https://arxiv.org/abs/2401.12452" class="btn btn-outline-primary btn-sm">Paper</a>
-                        <a href="https://github.com/Eaphan/NCLR" class="btn btn-outline-secondary btn-sm">Code</a>
-                        <!--<a href="#" class="btn btn-outline-success btn-sm">Website</a>-->
+                        <a href="https://arxiv.org/abs/2401.12452" class="btn btn-outline-primary btn-sm" data-zh="论文">Paper</a>
+                        <a href="https://github.com/Eaphan/NCLR" class="btn btn-outline-secondary btn-sm" data-zh="代码">Code</a>
                     </div>
                 </div>
                 <!-- 图片 -->
@@ -287,9 +353,9 @@
                         <em>IEEE Transactions on Multimedia (T-MM)</em>, 2025.
                     </p>
                     <div class="mt-3">
-                        <a href="https://arxiv.org/abs/2503.14154" class="btn btn-outline-primary btn-sm">Paper</a>
-                        <!--<a href="https://github.com/rsy6318/NeCGS" class="btn btn-outline-secondary btn-sm">Code</a>-->
-                        <!--<a href="#" class="btn btn-outline-success btn-sm">Website</a>-->
+                        <a href="https://arxiv.org/abs/2503.14154" class="btn btn-outline-primary btn-sm" data-zh="论文">Paper</a>
+                        <!--<a href="https://github.com/rsy6318/NeCGS" class="btn btn-outline-secondary btn-sm" data-zh="代码">Code</a>-->
+                        <!--<a href="#" class="btn btn-outline-success btn-sm" data-zh="项目主页">Website</a>-->
                     </div>
                 </div>
                 <!-- 图片 -->
@@ -316,9 +382,9 @@
                         <em>European Conference on Computer Vision (ECCV)</em>, 2024.
                     </p>
                     <div class="mt-3">
-                        <a href="https://arxiv.org/abs/2403.11586" class="btn btn-outline-primary btn-sm">Paper</a>
-                        <a href="https://github.com/yaoyx689/DynoSurf" class="btn btn-outline-secondary btn-sm">Code</a>
-                        <a href="https://yaoyx689.github.io/DynoSurf.html" class="btn btn-outline-success btn-sm">Website</a>
+                        <a href="https://arxiv.org/abs/2403.11586" class="btn btn-outline-primary btn-sm" data-zh="论文">Paper</a>
+                        <a href="https://github.com/yaoyx689/DynoSurf" class="btn btn-outline-secondary btn-sm" data-zh="代码">Code</a>
+                        <a href="https://yaoyx689.github.io/DynoSurf.html" class="btn btn-outline-success btn-sm" data-zh="项目主页">Website</a>
                     </div>
                 </div>
                 <!-- 图片 -->
@@ -343,9 +409,9 @@
                         <em>IEEE Transactions on Pattern Analysis and Machine Intelligence (T-PAMI)</em>, 2024.
                     </p>
                     <div class="mt-3">
-                        <a href="https://arxiv.org/abs/2403.01129" class="btn btn-outline-primary btn-sm">Paper</a>
-                        <a href="https://github.com/ZENGYIMING-EAMON/SPCV" class="btn btn-outline-secondary btn-sm">Code</a>
-                        <!--<a href="https://yaoyx689.github.io/DynoSurf.html" class="btn btn-outline-success btn-sm">Website</a>-->
+                        <a href="https://arxiv.org/abs/2403.01129" class="btn btn-outline-primary btn-sm" data-zh="论文">Paper</a>
+                        <a href="https://github.com/ZENGYIMING-EAMON/SPCV" class="btn btn-outline-secondary btn-sm" data-zh="代码">Code</a>
+                        <!--<a href="https://yaoyx689.github.io/DynoSurf.html" class="btn btn-outline-success btn-sm" data-zh="项目主页">Website</a>-->
                     </div>
                 </div>
                 <!-- 图片 -->
@@ -366,13 +432,13 @@
                 <div class="flex-grow-1">
                     <h5 class="card-title">GeoUDF: Surface Reconstruction from 3D Point Clouds via Geometry-guided Distance Representation</h5>
                     <p class="card-text">
-                        <strong>Siyu Ren</strong>, Junhui Hou, Xiaodong Chen, Ying He, and Wenping Wang. <br>
+                        <strong>Siyu Ren</strong>, Junhui Hou, Xiaodong Chen, Ying He, and Wenping Wang. (<strong data-zh="第一作者">First Author</strong>) <br>
                         <em>International Conference on Computer Vision (ICCV)</em>, 2023.
                     </p>
                     <div class="mt-3">
-                        <a href="https://arxiv.org/abs/2211.16762" class="btn btn-outline-primary btn-sm">Paper</a>
-                        <a href="https://github.com/rsy6318/GeoUDF" class="btn btn-outline-secondary btn-sm">Code</a>
-                        <a href="https://rsy6318.github.io/GeoUDF.html" class="btn btn-outline-success btn-sm">Website</a>
+                        <a href="https://arxiv.org/abs/2211.16762" class="btn btn-outline-primary btn-sm" data-zh="论文">Paper</a>
+                        <a href="https://github.com/rsy6318/GeoUDF" class="btn btn-outline-secondary btn-sm" data-zh="代码">Code</a>
+                        <a href="https://rsy6318.github.io/GeoUDF.html" class="btn btn-outline-success btn-sm" data-zh="项目主页">Website</a>
                     </div>
                 </div>
                 <!-- 图片 -->
@@ -393,13 +459,13 @@
                 <div class="flex-grow-1">
                     <h5 class="card-title">CorrI2P: Deep Image-to-Point Cloud Registration via Dense Correspondence</h5>
                     <p class="card-text">
-                        <strong>Siyu Ren</strong>, Yiming Zeng, Junhui Hou, Xiaodong Chen. <br>
+                        <strong>Siyu Ren</strong>, Yiming Zeng, Junhui Hou, Xiaodong Chen. (<strong data-zh="第一作者">First Author</strong>) <br>
                         <em>IEEE Transactions on Circuits and Systems for Video Technology (T-CSVT)</em>, 2022.
                     </p>
                     <div class="mt-3">
-                        <a href="https://ieeexplore.ieee.org/document/9900350" class="btn btn-outline-primary btn-sm">Paper</a>
-                        <a href="https://github.com/rsy6318/CorrI2P" class="btn btn-outline-secondary btn-sm">Code</a>
-                        <a href="https://rsy6318.github.io/CorrI2P.html" class="btn btn-outline-success btn-sm">Website</a>
+                        <a href="https://ieeexplore.ieee.org/document/9900350" class="btn btn-outline-primary btn-sm" data-zh="论文">Paper</a>
+                        <a href="https://github.com/rsy6318/CorrI2P" class="btn btn-outline-secondary btn-sm" data-zh="代码">Code</a>
+                        <a href="https://rsy6318.github.io/CorrI2P.html" class="btn btn-outline-success btn-sm" data-zh="项目主页">Website</a>
                     </div>
                 </div>
                 <!-- 图片 -->
@@ -431,13 +497,13 @@
         </div>
     </section>-->
 
-    <section id="awards" class="py-5">
+    <section id="service" class="py-5">
         <div class="container">
-            <h2 class="text-left mb-4">Research Service</h2>
+            <h2 class="text-start mb-4" data-zh="学术服务">Research Service</h2>
             <ul class="list-group" style="line-height: 1.2;">
-                <li class="list-group-item" style="padding-top: 0.5rem; padding-bottom: 0.5rem;">Reviewer of TPAMI, TCSVT, TIP, TVCG, SPL, PG 23, ACM MM 24, IJCAI 24, ICLR 2025, AAAI 2026.</li>
-                <li class="list-group-item" style="padding-top: 0.5rem; padding-bottom: 0.5rem;">Area Chair of ICLR 2026, ICLR 2027.</li>
-                <li class="list-group-item" style="padding-top: 0.5rem; padding-bottom: 0.5rem;">Program Committee of CVM 2025.</li>
+                <li class="list-group-item" style="padding-top: 0.5rem; padding-bottom: 0.5rem;" data-zh="担任 TPAMI、TCSVT、TIP、TVCG、SPL、PG 2023、ACM MM 2024、IJCAI 2024、ICLR 2025、AAAI 2026 审稿人。">Reviewer of TPAMI, TCSVT, TIP, TVCG, SPL, PG 23, ACM MM 24, IJCAI 24, ICLR 2025, AAAI 2026.</li>
+                <li class="list-group-item" style="padding-top: 0.5rem; padding-bottom: 0.5rem;" data-zh="担任 ICLR 2026、ICLR 2027 领域主席（Area Chair）。">Area Chair of ICLR 2026, ICLR 2027.</li>
+                <li class="list-group-item" style="padding-top: 0.5rem; padding-bottom: 0.5rem;" data-zh="担任 CVM 2025 程序委员会委员。">Program Committee of CVM 2025.</li>
             </ul>
         </div>
     </section>
@@ -445,25 +511,83 @@
 
     <section id="awards" class="py-5">
         <div class="container">
-            <h2 class="text-left mb-4">Awards</h2>
+            <h2 class="text-start mb-4" data-zh="荣誉奖励">Awards</h2>
             <ul class="list-group" style="line-height: 1.2;">
-                <li class="list-group-item" style="padding-top: 0.5rem; padding-bottom: 0.5rem;">Peter Ho Conference Scholarships, 2024</li>
-                <li class="list-group-item" style="padding-top: 0.5rem; padding-bottom: 0.5rem;">Second prize of China National University Students' Opt-Sci-Tech Competition, 2016</li>
-                <li class="list-group-item" style="padding-top: 0.5rem; padding-bottom: 0.5rem;">Second prize of North China Aircraft Design Challenge, 2016</li>
-                <li class="list-group-item" style="padding-top: 0.5rem; padding-bottom: 0.5rem;">First prize of the National Mathematics Competition for College Students (Tianjin area), 2015</li>
-                <li class="list-group-item" style="padding-top: 0.5rem; padding-bottom: 0.5rem;">Grand prize of Tianjin Mathematics Competition for College Students, 2015</li>
+                <li class="list-group-item" style="padding-top: 0.5rem; padding-bottom: 0.5rem;" data-zh="Peter Ho 会议奖学金，2024">Peter Ho Conference Scholarships, 2024</li>
+                <li class="list-group-item" style="padding-top: 0.5rem; padding-bottom: 0.5rem;" data-zh="全国大学生光电设计竞赛二等奖，2016">Second prize of China National University Students' Opt-Sci-Tech Competition, 2016</li>
+                <li class="list-group-item" style="padding-top: 0.5rem; padding-bottom: 0.5rem;" data-zh="华北地区飞行器设计挑战赛二等奖，2016">Second prize of North China Aircraft Design Challenge, 2016</li>
+                <li class="list-group-item" style="padding-top: 0.5rem; padding-bottom: 0.5rem;" data-zh="全国大学生数学竞赛（天津赛区）一等奖，2015">First prize of the National Mathematics Competition for College Students (Tianjin area), 2015</li>
+                <li class="list-group-item" style="padding-top: 0.5rem; padding-bottom: 0.5rem;" data-zh="天津市大学生数学竞赛特等奖，2015">Grand prize of Tianjin Mathematics Competition for College Students, 2015</li>
             </ul>
         </div>
     </section>
 
-    <!-- Footer 
+    <!-- Footer -->
     <footer class="bg-dark text-white text-center py-3">
         <div class="container">
-            <p>&copy; 20XX John Doe. All rights reserved.</p>
+            <p class="mb-0" data-zh="&copy; 2026 任思宇（Siyu Ren）. 保留所有权利。">&copy; 2026 Siyu Ren. All rights reserved.</p>
         </div>
-    </footer>-->
+    </footer>
 
-    <!-- Bootstrap JS 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>-->
+    <!-- Bootstrap JS (navbar collapse, etc.) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- News 列表不需要额外 JS：
+         滚轮 / 触屏拖动 / 键盘都由原生滚动 + scroll-snap 支持，
+         这样文字保持可选中复制（自定义鼠标拖拽会吃掉文本选择）。 -->
+
+    <!-- ================== 中英文切换 ==================
+         原理：需要翻译的元素只写 data-zh（中文），英文原文由脚本在首次运行时
+         自动缓存到 data-en。这样 HTML 里不用把英文写两遍，也就不会出现
+         中英文不同步的问题。默认英文，用户点过按钮后用 localStorage 记住。
+         没有 JS 时页面保持英文（data-zh 不生效），不影响 SEO 与可访问性。 -->
+    <script>
+    (function () {
+        var STORAGE_KEY = 'rsy6318-lang';
+        var root = document.documentElement;
+        var TITLES = {
+            en: 'Siyu Ren — 3D Geometry, Generative Models & Embodied AI',
+            zh: '任思宇 — 三维几何、生成模型与具身智能'
+        };
+
+        // 首次运行：把英文原文缓存进 data-en
+        var nodes = document.querySelectorAll('[data-zh]');
+        Array.prototype.forEach.call(nodes, function (el) {
+            if (!el.hasAttribute('data-en')) {
+                el.setAttribute('data-en', el.innerHTML);
+            }
+        });
+
+        function applyLang(lang) {
+            Array.prototype.forEach.call(nodes, function (el) {
+                el.innerHTML = el.getAttribute('data-' + lang) || el.innerHTML;
+            });
+
+            root.setAttribute('lang', lang === 'zh' ? 'zh-CN' : 'en');
+            document.title = TITLES[lang] || TITLES.en;
+
+            var btn = document.getElementById('langToggle');
+            if (btn) {
+                // 按钮显示的是"点一下会切到哪种语言"
+                btn.textContent = lang === 'zh' ? 'EN' : '中文';
+                btn.setAttribute('aria-label',
+                    lang === 'zh' ? 'Switch to English' : 'Switch to Chinese');
+            }
+
+            try { localStorage.setItem(STORAGE_KEY, lang); } catch (e) { /* 隐私模式忽略 */ }
+        }
+
+        var saved = null;
+        try { saved = localStorage.getItem(STORAGE_KEY); } catch (e) { /* 隐私模式忽略 */ }
+        applyLang(saved === 'zh' ? 'zh' : 'en');
+
+        var toggle = document.getElementById('langToggle');
+        if (toggle) {
+            toggle.addEventListener('click', function () {
+                applyLang(root.getAttribute('lang') === 'zh-CN' ? 'en' : 'zh');
+            });
+        }
+    })();
+    </script>
 </body>
 </html>
